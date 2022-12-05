@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズシステム</title>
+ </head>
+ <body>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <h1>問題選択</h1>
+   
+   <form name = "form1">
+    <select name="mondaisentaku">
+    <option value= 1 >問題１</option>
+    </select>
+
+   <div class = "s">
+    <br>
+    <input type="submit" name="button" value="問題送信" class="s"></button>
+    <br>
+   </div>
+    
+    </form>
+   <script>
+       var socket = io();
+       var n = document.forms.form1;
+       var s = document.form1.mondaisentaku
+       let element= s.selectedIndex;
+       var a = s.options[element].value;
+
+      n.button.addEventListener('click', function(e) {
+        e.preventDefault();
+        socket.emit('mondai_btnclick',a);
+      })
+      
+      socket.on('mondai_kekka',function(flag){
+        if(flag = 1){
+            window.location.href = '/mondai2'
+        }else{
+        window.location.href = '/hello'
+      }
+      }
+      )
+   </script>
+ </body>   
+</html>

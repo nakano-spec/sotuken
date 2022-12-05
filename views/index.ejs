@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表示２</title>
+    <style>
+      p{
+        font-size: 1px;
+      }
+      .R{
+        display: flex;
+        justify-content: center;
+        border: solid 3px;
+      }
+      .hun{
+        font-size: 50px;
+      }
+      .ti{
+        font-size: 50px;
+      }
+      .byou{
+        font-size: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <script src='/socket.io/socket.io.js'></script>
+    <div id="mytime">
+     <p><%= time %></p> 
+    </div>
+    <div class ="R">
+    <div id = "re" class = "hun"></div>
+    <div id = "re2" class = "ti">:</div>
+    <div id = "re3" class = "byou"></div>
+    </div>
+    <h1><%= bun1 %></h1>
+    <br>
+    <script>
+      //簡易タイマーを作成
+      var socket = io();
+      var hyoujiindex = 0;
+      var timer = document.getElementById('mytime');
+      var timer2 = timer.innerText;
+      var timer3 = parseInt(timer2/60,10);
+      var timer4 = timer2%60
+      var countdownid1 = setInterval(function(){
+                timer4 --;
+                re.innerText=timer3;
+                re3.innerText = timer4;
+                if(timer3 >0 && timer4 == 0){
+                    timer3 --;
+                    timer4 = 59;
+                }
+                if(timer3 == 0 && timer4 == 0){
+                    clearInterval(countdownid);
+                }
+            }, 1000);
+
+            socket.on('hyouji',function(de){
+              window.location.href ='/hyou3?data=' + encodeURIComponent(de);
+            })
+
+            socket.on('kekkahyouji2',function(){
+              window.location.href='/hyou4';
+            })
+    </script>
+  </body>
+</html>

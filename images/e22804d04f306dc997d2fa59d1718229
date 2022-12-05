@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>結果発表</title>
+    </head>
+    <body>
+        <ul>
+            <table  id ="box" class ="example" border="2px">
+              <tr>  
+            <% han1.forEach((list) => { %>
+                <div>
+                      <td width="100px" height="100px" align="center" bgcolor="#FF0000"><%= list.sname %></td>
+                      <td width="100px" height="100px" align="center" bgcolor="#0000FF"><%= list.han %></td>
+                    
+                </div>
+            <% }) %>
+          </tr>
+          </table>
+          </ul>
+          <script>
+            const rows = JSON.parse('<%- JSON.stringify(han1) %>');
+            console.log(rows);
+            var a = 0;
+            var b = 0;
+            for(let i = 0;i<rows.length;i++){
+                a = rows[i].sname;
+                console.log(a);
+                b = rows[i].han;
+                console.log(b);
+            }
+           </script>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang ="ja">
+    <head>
+        <title>表示</title>
+        <meta charset="utf-8">
+        <style>
+            .main{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <script src="/socket.io/socket.io.js"></script>
+        <div id = "myid">
+        <p><%= name %></p>
+        </div>
+        <section class="main">
+            <div class="container">
+                <form name ="s1">
+                <h1>受付中…</h1>
+                <input type ="submit" name="modoru" value = "戻る" class="s"> 
+                </form>
+                
+            </div>
+        </section>
+        <script>
+            //指定した時間ごとに変数に記録されている処理を起動している。
+            var socket = io();
+            var f = document.forms.s1;
+            var mydiv = document.getElementById("myid");
+
+
+            var log = function(){
+                window.location.href ='/kaitou2?name=' + encodeURIComponent(mydiv.innerText);
+            }
+
+            setInterval(log,5000);
+            //ボタンが押されたらログイン画面に戻る
+            f.modoru.addEventListener('click',function(e){
+                e.preventDefault();
+                window.location.href='/login';
+            })
+        </script>
+    </body>
+    
+</html>
