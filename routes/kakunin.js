@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
     password: "20010426",
     database: "mydb"
 });
+connection.connect();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -17,8 +18,8 @@ router.get('/', function(req, res, next) {
         console.log(err);
     }
     res.render('kakunin.ejs',{data:result});
+    connection.end();
    })
-   
 });
 
 module.exports = router;

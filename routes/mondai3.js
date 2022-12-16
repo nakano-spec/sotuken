@@ -8,6 +8,8 @@ const connection = mysql.createConnection({
     database: "mydb"
 });
 
+connection.connect();
+
 router.get("/", (req, res)=>{
     const sql = "select m.mon_ID,u.username,k.kai,k.han from kaitou_LIST k,users u,mondai_LIST m where k.user_ID = u.user_ID and k.mon_ID = m.mon_ID;"
     const sql2 = "select s.seikai from kaitou_LIST k,seikai_LIST s where k.mon_ID = s.mon_ID"
@@ -38,10 +40,10 @@ router.get("/", (req, res)=>{
                     res.render("mondai5", { web: result});
                 }
             })
-             
+            connection.end();
         })
     })
-   
 })
+
 
 module.exports = router;

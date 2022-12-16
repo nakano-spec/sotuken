@@ -7,6 +7,7 @@ const connection = mysql.createConnection({
     password: "20010426",
     database: "mydb"
 });
+connection.connect();
 
 router.get("/", (req, res)=>{
     var name2 = req.query.name;
@@ -14,14 +15,15 @@ router.get("/", (req, res)=>{
     const sql2 ="select f.kai_keisiki from kaikeisiki_LIST f,mondai_LIST m where f.kai_ID = m.kai_ID and m.sentaku = '1';"
     const sql3 = "select mondaibun from mondai_LIST where sentaku = '1';"
     connection.query(sql2,(err,result2,field)=>{
+        console.log(result2);
         console.log(result2[0].kai_keisiki == "入力");
         if(err){
             console.log(err);
         }
-        if(result2.kai_keisiki == "選択"){
+        if(result2[0].kai_keisiki == "選択"){
           connection.query(sql, (err, result, fields)=>{
           if(err){
-            res.render("kaitou");
+            console.log(err);
           };
           var data={
             name: name2,
@@ -43,9 +45,9 @@ router.get("/", (req, res)=>{
         }else{
             console.log("ありませんでした。");
         }
-        
+        connection.end();
     })
-    
 })
+
 
 module.exports = router;

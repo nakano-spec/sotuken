@@ -12,8 +12,8 @@ const connection = mysql.createConnection({
 router.get('/', function(req, res, next) {
    var s = 'select u.username,k.han from kaitou_LIST k,users u where k.user_ID = u.user_ID;'
    connection.query(s,(err,results,fields)=>{
-    //mysqlに接続して持ってきたデータを配列に格納している「results」をhan1という変数にしてhyouji4.ejsファイルに送っている。
     res.render('hyouji4',{han1:results});
+    connection.end();
    })
 });
 

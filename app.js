@@ -8,6 +8,7 @@ var ExcelJS = require('exceljs');
 var validator = require('validator');
 var multer = require('multer');
 var cors = require('cors');
+var mysql = require('mysql');
 
 //パス情報を変数に格納している。
 var indexRouter = require('./routes/index');
@@ -35,6 +36,32 @@ var uploadRouter = require('./routes/upload.js')
 const router = require('./routes/index');
 //読み込んだexpressをapp変数に格納
 var app = express();
+
+
+const db_conf ={
+  host :'localhost',
+  user :'root',
+  password :'20010426',
+  database :'mydb',
+}
+const db_conf2 ={
+  host :'localhost',
+  user :'root',
+  password :'20010426',
+  database :'mydb2',
+}
+const db_conf3 ={
+  host :'localhost',
+  user :'root',
+  password :'20010426',
+  database :'mysql2',
+}
+const pool = mysql.createPoolCluster();
+pool.add('MASTER',db_conf);
+pool.add('SLAVE1',db_conf);
+pool.add('SLAVE2',db_conf2);
+pool.add('SLAVE3',db_conf3);
+app.set('pool',pool);
 
 //ejsを使えるようにしている。
 app.set('views', path.join(__dirname, 'views'));
@@ -94,7 +121,9 @@ app.post('/upload',multer({ dest:'./public/images/' } ).single('file'),function(
   res.send('ファイルのアップロードが完了しました。');
 })
 
+
+
+
+
 app.use(cors());
 module.exports = app;
-
-

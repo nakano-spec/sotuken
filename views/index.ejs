@@ -4,37 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>表示２</title>
-    <style>
-      p{
-        font-size: 1px;
-      }
-      .R{
-        display: flex;
-        justify-content: center;
-        border: solid 3px;
-      }
-      .hun{
-        font-size: 50px;
-      }
-      .ti{
-        font-size: 50px;
-      }
-      .byou{
-        font-size: 50px;
-      }
-    </style>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/style3.css">
   </head>
   <body>
     <script src='/socket.io/socket.io.js'></script>
     <div id="mytime">
-     <p><%= time %></p> 
+     <p><%= web[0].time %></p> 
     </div>
     <div class ="R">
     <div id = "re" class = "hun"></div>
     <div id = "re2" class = "ti">:</div>
     <div id = "re3" class = "byou"></div>
     </div>
-    <h1><%= bun1 %></h1>
+    <h1><%= web[0].mondaibun %></h1>
     <br>
     <script>
       //簡易タイマーを作成
